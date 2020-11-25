@@ -124,7 +124,6 @@ public class UserView {
         
          // Define listView for following messgae
         ListView<String> followingMsg = new ListView<>();
-        user.addMessage("News Feed\n");
         followingMsg.setItems(user.getFollowingMessages());
            
         GridPane.setConstraints(followingMsg, 2, 1);

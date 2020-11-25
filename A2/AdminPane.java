@@ -271,6 +271,26 @@ public class AdminPane {
         });
         
         Button showPos = new Button("Show Posititve Percentage");
+        
+        showPos.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                
+                //Creating a dialog
+                Dialog<String> dialog = new Dialog<String>();
+                //Setting the title
+                dialog.setTitle("Notice");
+                ButtonType type = new ButtonType("Ok", ButtonData.OK_DONE);
+                
+                ShowMessageAnalysisVisitor visitor = new ShowMessageAnalysisVisitor(); 
+                MessageAnalysis messageAnalyzer = new MessageAnalysis();
+               
+                dialog.setContentText("The percentage of positive message(s):   " + messageAnalyzer.accept(visitor) + "%");
+                dialog.getDialogPane().getButtonTypes().add(type);
+                dialog.showAndWait();
+            }
+        });
+        
         hbButtons2.getChildren().addAll(showMsgTotal, showPos);
         hbButtons2.setAlignment(Pos.CENTER_LEFT);
 

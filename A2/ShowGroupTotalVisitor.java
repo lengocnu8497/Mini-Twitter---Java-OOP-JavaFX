@@ -12,4 +12,8 @@ public class ShowGroupTotalVisitor implements Visitor {
         return 1;
     }
     
+    @Override
+    public int visit(MessageAnalysis analysis) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
