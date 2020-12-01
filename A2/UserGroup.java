@@ -4,10 +4,13 @@ import java.util.HashSet;
 
 public class UserGroup extends UserComponent implements Visitable {
     private String gid;
+    private long creationTime;
+    private long lastUpdatedTime;
     private HashSet<UserComponent> userComponents;
     
     public UserGroup(String gid) {
         this.gid = gid;
+        this.creationTime = System.currentTimeMillis();
         userComponents = new HashSet();
     }
     
@@ -22,6 +25,10 @@ public class UserGroup extends UserComponent implements Visitable {
     
     public String getGID() {
         return gid;
+    }
+    
+     public long getCreationTime() {
+        return creationTime;
     }
 
     public int accept(Visitor visitor) {

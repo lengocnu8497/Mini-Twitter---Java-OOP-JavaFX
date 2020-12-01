@@ -22,6 +22,11 @@ public class ShowMessageAnalysisVisitor implements Visitor {
     public int visit(UserGroup userGroup) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    @Override
+    public int visit(IDVerificator verificator) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 
     @Override
     public int visit(MessageAnalysis analysis) {
@@ -48,6 +53,11 @@ public class ShowMessageAnalysisVisitor implements Visitor {
         double percentage = totalMsg == 0 ? 0 : ((double)totalPosMsg/totalMsg)*100;
  
         return (int) percentage;
+    }
+
+    @Override
+    public int visit(LastUpdateDetector detector) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

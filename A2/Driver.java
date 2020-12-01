@@ -29,6 +29,19 @@ public class Driver extends Application {
     
     public static void main(String[] args) {
         launch(args);  
+//            User u1 = new User("u2");
+//            User u2 = new User("u2");
+//            
+//            AdminController admin = AdminController.getInstance();
+//            admin.addUser(u1);
+//            admin.addUser(u2);
+//            
+//            IDVerificator veri = new IDVerificator();
+//            ShowIDVerificationVisitor visitor = new ShowIDVerificationVisitor();
+//            
+//            if(veri.accept(visitor) == 0)
+//                System.out.println("OK");
+//            else System.out.println("not OK");   
     }
     
 }

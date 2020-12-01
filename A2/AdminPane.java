@@ -178,7 +178,7 @@ public class AdminPane {
                     Scene scene = new Scene(userWindow.getPane(),600,550);
                     Stage stage = new Stage();
                     
-                    stage.setTitle("User View");
+                    stage.setTitle("User View - Created at " + newUser.getCreationTime());
                     stage.setScene(scene);
                     //Fill stage with content
                     stage.show();               
@@ -293,10 +293,62 @@ public class AdminPane {
         
         hbButtons2.getChildren().addAll(showMsgTotal, showPos);
         hbButtons2.setAlignment(Pos.CENTER_LEFT);
+        
+        
+        HBox hbButtons3 = new HBox();
+        hbButtons3.setPadding(new Insets(10, 10, 10, 10));
+        hbButtons3.setSpacing(20);
+        Button showIDVerification = new Button("Show ID(s) Verification");
+        Button showLastUpdatedUser = new Button("Show Last Updated User");
+        hbButtons3.getChildren().addAll(showIDVerification, showLastUpdatedUser);
+        hbButtons3.setAlignment(Pos.CENTER_LEFT);
+        
+        showIDVerification.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                
+                //Creating a dialog
+                Dialog<String> dialog = new Dialog<String>();
+                //Setting the title
+                dialog.setTitle("Notice");
+                ButtonType type = new ButtonType("Ok", ButtonData.OK_DONE); 
+                
+                ShowIDVerificationVisitor visitor = new ShowIDVerificationVisitor(); 
+                IDVerificator verificator = new IDVerificator();
+               
+                String res = verificator.accept(visitor) == 0 ? "OK" : "Not OK";
+                dialog.setContentText("The validity of all ID(s) are:   " + res );
+                dialog.getDialogPane().getButtonTypes().add(type);
+                dialog.showAndWait();
+            }
+        });
+        
+        showLastUpdatedUser.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                
+                //Creating a dialog
+                Dialog<String> dialog = new Dialog<String>();
+                //Setting the title
+                dialog.setTitle("Notice");
+                ButtonType type = new ButtonType("Ok", ButtonData.OK_DONE); 
+                
+                ShowLastUpdateVisitor visitor = new ShowLastUpdateVisitor(); 
+                LastUpdateDetector detector = new LastUpdateDetector();
+               
+                int lastUpdateTime = detector.accept(visitor);
+                
+                System.out.println(" last " + lastUpdateTime);
+                dialog.setContentText("The last updated user:   " 
+                        + visitor.getUpdateMapping().get(lastUpdateTime));
+                dialog.getDialogPane().getButtonTypes().add(type);
+                dialog.showAndWait();
+            }
+        });
 
         
         VBox vbButtons = new VBox();
-        vbButtons.getChildren().addAll(hbButtons1, hbButtons2);
+        vbButtons.getChildren().addAll(hbButtons1, hbButtons2, hbButtons3);
         bp.setBottom(vbButtons); 
        
 

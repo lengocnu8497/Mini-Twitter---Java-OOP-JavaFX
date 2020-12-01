@@ -36,19 +36,13 @@ public class AdminController {
    }
    
    public static boolean addUser(User user) {
-      if(!users.containsKey(user.getUID())) {
-          users.put(user.getUID(), user);
-          return true;
-      }
-      return false;
+        users.put(user.getUID(), user);
+        return true;
    }
    
    public static boolean addGroup(UserGroup group) {
-      if(!userGroup.contains(group)) {
-          userGroup.add(group);
-          return true;
-      }
-      return false;
+        userGroup.add(group);
+        return true;
    }
    
    public static Hashtable<String,User> getUsers() {

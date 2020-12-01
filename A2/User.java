@@ -12,6 +12,8 @@ public class User extends UserComponent implements Subject, Observer, Visitable 
     private ObservableList<String> messages;
     private int mid;
     private String uid;
+    private long creationTime;
+    private long lastUpdatedTime = 0;
     
     public User(String uid){
         this.followers = FXCollections.observableArrayList();
@@ -19,6 +21,7 @@ public class User extends UserComponent implements Subject, Observer, Visitable 
         this.messages = FXCollections.observableArrayList();
         this.followingMessage = FXCollections.observableArrayList();
         this.uid = uid;
+        this.creationTime = System.currentTimeMillis();
     }
     
     public void register(Observer follower) {
@@ -30,15 +33,15 @@ public class User extends UserComponent implements Subject, Observer, Visitable 
 
     
     public void unregister(Observer follower) {
-        followers.remove(follower.getUID());
-       
+        followers.remove(follower.getUID());     
     }
 
     public void notifyObserver() { 
         String latestMessage = messages.get(messages.size() -1);
         
         for(Observer follower : followers) {
-            follower.update(latestMessage, this.uid);
+            follower.update(latestMessage + ". Last updated at " 
+                    + getLastUpdatedTime(), this.uid);
             System.out.println(this.uid + " : " + latestMessage);
         }
     }
@@ -61,10 +64,19 @@ public class User extends UserComponent implements Subject, Observer, Visitable 
    
     public void addMessage(String message) {
        this.messages.add(message);
+       lastUpdatedTime = System.currentTimeMillis();
     }
     
     public String getUID() {
         return uid;
+    }
+    
+    public long getCreationTime() {
+        return creationTime;
+    }
+    
+    public long getLastUpdatedTime() {
+        return lastUpdatedTime;
     }
     
     public int getFollowersNum() {
